@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Post } from '@prisma/client';
+import { Posts } from '@prisma/client';
 import { PrismaClient, Prisma } from '@prisma/client'
 
 
@@ -11,8 +11,8 @@ export class PostsService {
     return ['dragons', 'kittens', 'unicorns'];
   }
 
-  async createNewPost(data: any): Promise<Post> {
-    return await this.prisma.post.create({
+  async createNewPost(data: any): Promise<Posts> {
+    return await this.prisma.posts.create({
       data: {
         title: data.title,
         description: data.description,
