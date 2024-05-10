@@ -7,10 +7,6 @@ const prisma = new PrismaClient()
 @Injectable()
 export class PostsService {
 
-  findAll(): string[] {
-    return ['dragons', 'kittens', 'unicorns'];
-  }
-
   async createNewPost(data: any): Promise<Posts> {
     return await prisma.posts.create({
       data: {
