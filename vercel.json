@@ -1,5 +1,8 @@
 {
     "version": 2,
+    "scripts": {
+        "build": "vercel-build"
+    },
     "builds": [
        {
         "src": "src/main.ts",
