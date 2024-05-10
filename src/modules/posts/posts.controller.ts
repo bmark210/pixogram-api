@@ -5,10 +5,10 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  // @Post("/new")
-  // createNewPost(@Body() body: any) {
-  //   return this.postsService.createNewPost(body);
-  // }
+  @Post("/new")
+  createNewPost(@Body() body: any) {
+    return this.postsService.createNewPost(body);
+  }
 
   findAll() {
     return this.postsService.findAll();

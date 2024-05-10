@@ -11,13 +11,13 @@ export class PostsService {
     return ['dragons', 'kittens', 'unicorns'];
   }
 
-  // async createNewPost(data: any): Promise<Post> {
-  //   return await this.prisma.post.create({
-  //     data: {
-  //       title: data.title,
-  //       description: data.description,
-  //       imgUrl: data.image,
-  //     },
-  //   });
-  // }
+  async createNewPost(data: any): Promise<Post> {
+    return await this.prisma.post.create({
+      data: {
+        title: data.title,
+        description: data.description,
+        imgUrl: data.image,
+      },
+    });
+  }
 }
