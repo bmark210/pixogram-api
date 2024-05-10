@@ -7,13 +7,18 @@ const prisma = new PrismaClient()
 @Injectable()
 export class PostsService {
 
-  async createNewPost(data: any): Promise<Posts> {
-    return await prisma.posts.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        imgUrl: data.image,
-      },
-    });
+  findAll(): Array<string> {
+    return ['1', '2', '3'];
   }
+
+
+  // async createNewPost(data: any): Promise<Posts> {
+  //   return await prisma.posts.create({
+  //     data: {
+  //       title: data.title,
+  //       description: data.description,
+  //       imgUrl: data.image,
+  //     },
+  //   });
+  // }
 }

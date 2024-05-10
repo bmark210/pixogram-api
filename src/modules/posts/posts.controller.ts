@@ -5,8 +5,12 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private postsService: PostsService) {}
 
-  @Post("/new")
-  createNewPost(@Body() body: any) {
-    return this.postsService.createNewPost(body);
+  @Get()
+  getPosts() {
+    return this.postsService.findAll();
   }
+  // @Post("/new")
+  // createNewPost(@Body() body: any) {
+  //   return this.postsService.createNewPost(body);
+  // }
 }
