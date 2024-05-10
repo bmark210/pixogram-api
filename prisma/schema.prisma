@@ -23,7 +23,7 @@ model User {
   lastName String?
 }
 
-model Posts {
+model Post {
   id Int @id @default(autoincrement())
   title String
   description String?
