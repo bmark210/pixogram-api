@@ -1,8 +1,6 @@
 {
     "version": 2,
-    "scripts": {
-        "build": "vercel-build"
-    },
+    "buildCommand": "vercel-build",
     "builds": [
        {
         "src": "src/main.ts",
