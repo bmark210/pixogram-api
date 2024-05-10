@@ -3,14 +3,10 @@ import { PostsService } from './posts.service';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private postsService: PostsService) {}
+  constructor(private readonly postsService: PostsService) {}
 
-  @Get()
-  getPosts() {
-    return this.postsService.findAll();
+  @Post("/new")
+  createNewPost(@Body() body: any) {
+    return this.postsService.createNewPost(body);
   }
-  // @Post("/new")
-  // createNewPost(@Body() body: any) {
-  //   return this.postsService.createNewPost(body);
-  // }
 }
