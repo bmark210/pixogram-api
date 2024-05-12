@@ -28,7 +28,8 @@ export class PostsController {
   }
 
   @Delete(':id')
-  deletePost(@Param('id') id: number) {
-    return this.postsService.deletePost(id);
+  deletePost(@Param('id') id: string) {
+    let postId = parseInt(id);
+    return this.postsService.deletePost(postId);
   }
 }
