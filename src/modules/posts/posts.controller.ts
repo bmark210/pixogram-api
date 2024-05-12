@@ -11,7 +11,7 @@ export class PostsController {
   }
 
 
-  @Post("/new")
+  @Post("new")
   createNewPost(@Body() body: any) {
     return this.postsService.createNewPost(body);
   }
