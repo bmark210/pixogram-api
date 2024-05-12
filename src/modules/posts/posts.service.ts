@@ -25,12 +25,12 @@ export class PostsService {
           title: {
             contains: filter.searchText,
           },
-        },
-        take: filter.limit,
-        skip: filter.offset,
+        } ?? undefined,
+        take: filter.limit ?? 10,
+        skip: filter.offset ?? 0,
         orderBy: {
           [filter.sortBy]: filter.sortOrder,
-        },
+        } ?? { createdAt: 'desc' },
       }
     );
   }
