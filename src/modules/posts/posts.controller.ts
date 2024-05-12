@@ -5,7 +5,6 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-
   @Get()
   getAllPosts() {
     return this.postsService.getAllPosts();
