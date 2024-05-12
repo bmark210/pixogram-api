@@ -27,7 +27,7 @@ export class PostsController {
     return this.postsService.updatePost(id, body);
   }
 
-  @Post(":id/delete")
+  @Delete(":id/delete")
   deletePost(@Query() id: number) {
     return this.postsService.deletePost(id);
   }
