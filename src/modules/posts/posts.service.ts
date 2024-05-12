@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Posts } from '@prisma/client';
 import { PrismaService } from './prisma.service';
+import { IPostsFilter } from 'src/interfaces/posts.interface';
 
 @Injectable()
 export class PostsService {
@@ -17,12 +18,20 @@ export class PostsService {
     });
   }
 
-  getAllPosts(): Posts[] {
-    return [{
-      id: 1,
-      title: 'title',
-      description: 'description',
-      imgUrl: 'image',
-    }];
+  async getPosts(filter: IPostsFilter): Promise<Posts[]> {
+    return this.prisma.posts.findMany(
+      {
+        where: {
+          title: {
+            contains: filter.searchText,
+          },
+        },
+        take: filter.limit,
+        skip: filter.offset,
+        orderBy: {
+          [filter.sortBy]: filter.sortOrder,
+        },
+      }
+    );
   }
 }

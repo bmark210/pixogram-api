@@ -1,19 +1,19 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { IPostsFilter } from './../../interfaces/posts.interface';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
+import { ICreatePostDto } from 'src/interfaces/posts.interface';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Get()
-  getAllPosts() {
-    console.log('get posts')
-    return this.postsService.getAllPosts();
+  @Get() 
+  getPosts(@Query() filter: IPostsFilter) {
+    return this.postsService.getPosts(filter);
   }
 
-
   @Post("new")
-  createNewPost(@Body() body: any) {
+  createNewPost(@Body() body: ICreatePostDto) {
     return this.postsService.createNewPost(body);
   }
 }
