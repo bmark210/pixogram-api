@@ -1,5 +1,5 @@
 import { IPostsFilter, IUpdatePostDto } from './../../interfaces/posts.interface';
-import { Body, Controller, Delete, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { ICreatePostDto } from 'src/interfaces/posts.interface';
 
@@ -27,8 +27,8 @@ export class PostsController {
     return this.postsService.updatePost(id, body);
   }
 
-  @Delete(":id")
-  deletePost(@Query() id: number) {
+  @Delete(':id')
+  deletePost(@Param('id') id: number) {
     return this.postsService.deletePost(id);
   }
 }
