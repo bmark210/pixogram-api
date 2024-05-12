@@ -34,4 +34,33 @@ export class PostsService {
       }
     );
   }
+
+  async getPostById(id: number): Promise<Posts> {
+    return await this.prisma.posts.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async updatePost(id: number, data: any): Promise<Posts> {
+    return await this.prisma.posts.update({
+      where: {
+        id: id,
+      },
+      data: {
+        title: data.title,
+        description: data.description,
+        imgUrl: data.imgUrl,
+      },
+    });
+  }
+
+  async deletePost(id: number): Promise<Posts> {
+    return await this.prisma.posts.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 }
