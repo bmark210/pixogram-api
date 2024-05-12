@@ -16,4 +16,13 @@ export class PostsService {
       },
     });
   }
+
+  getAllPosts(): Posts[] {
+    return [{
+      id: 1,
+      title: 'title',
+      description: 'description',
+      imgUrl: 'image',
+    }];
+  }
 }
