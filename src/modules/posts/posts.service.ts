@@ -12,7 +12,7 @@ export class PostsService {
       data: {
         title: data.title,
         description: data.description,
-        imgUrl: data.image,
+        imgUrl: data.imgUrl,
       },
     });
   }
