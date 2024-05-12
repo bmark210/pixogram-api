@@ -7,6 +7,7 @@ export class PostsController {
 
   @Get()
   getAllPosts() {
+    console.log('get posts')
     return this.postsService.getAllPosts();
   }
 
