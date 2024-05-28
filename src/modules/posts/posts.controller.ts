@@ -1,5 +1,5 @@
 import { IPostsFilter, IUpdatePostDto } from './../../interfaces/posts.interface';
-import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { ICreatePostDto } from 'src/interfaces/posts.interface';
 
@@ -9,8 +9,6 @@ export class PostsController {
 
   @Get() 
   getPosts(@Query() filter: IPostsFilter) {
-    console.log('is working');
-    
     return this.postsService.getPosts(filter);
   }
 
@@ -19,16 +17,19 @@ export class PostsController {
     return this.postsService.createNewPost(body);
   }
 
-  @Post(":id")
+  @Get(":id")
   getPostById(@Param('id') id: string) {
-    console.warn(id, typeof id);
 
     let postId = parseInt(id);
-    
-    return this.postsService.getPostById(postId);
+    let post = this.postsService.getPostById(postId);
+
+    if(!post) {
+      throw new NotFoundException('Post not found');
+    }
+    return post;
   }
 
-  @Post(":id")
+  @Put(":id")
   updatePost(@Body() body: IUpdatePostDto, @Query() id: number) {
     return this.postsService.updatePost(id, body);
   }

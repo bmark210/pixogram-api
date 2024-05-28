@@ -19,7 +19,7 @@ export class PostsService {
   }
 
   async getPosts(filter: IPostsFilter): Promise<Posts[]> {
-    return this.prisma.posts.findMany(
+    return await this.prisma.posts.findMany(
       {
         where: {
           title: {
@@ -36,8 +36,6 @@ export class PostsService {
   }
 
   async getPostById(id: number): Promise<Posts> {
-    console.warn(id, typeof id);
-
     return await this.prisma.posts.findUnique({
       where: {
         id: id,
