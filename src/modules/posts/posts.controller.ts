@@ -19,7 +19,7 @@ export class PostsController {
 
   @Get(":id")
   getPostById(@Query('id') id: number) {
-    console.log(id, typeof id);
+    console.warn(id, typeof id);
     
     return this.postsService.getPostById(id);
   }

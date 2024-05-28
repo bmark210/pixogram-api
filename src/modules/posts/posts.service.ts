@@ -36,6 +36,8 @@ export class PostsService {
   }
 
   async getPostById(id: number): Promise<Posts> {
+    console.warn(id, typeof id);
+
     return await this.prisma.posts.findUnique({
       where: {
         id: id,
