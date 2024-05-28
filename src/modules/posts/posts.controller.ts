@@ -9,6 +9,8 @@ export class PostsController {
 
   @Get() 
   getPosts(@Query() filter: IPostsFilter) {
+    console.log('is working');
+    
     return this.postsService.getPosts(filter);
   }
 
