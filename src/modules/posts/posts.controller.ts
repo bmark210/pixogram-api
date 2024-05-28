@@ -19,8 +19,8 @@ export class PostsController {
     return this.postsService.createNewPost(body);
   }
 
-  @Get(":id")
-  getPostById(@Query('id') id: number) {
+  @Post(":id")
+  getPostById(@Param('id') id: number) {
     console.warn(id, typeof id);
     
     return this.postsService.getPostById(id);
