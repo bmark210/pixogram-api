@@ -20,10 +20,12 @@ export class PostsController {
   }
 
   @Post(":id")
-  getPostById(@Param('id') id: number) {
+  getPostById(@Param('id') id: string) {
     console.warn(id, typeof id);
+
+    let postId = parseInt(id);
     
-    return this.postsService.getPostById(id);
+    return this.postsService.getPostById(postId);
   }
 
   @Post(":id")
