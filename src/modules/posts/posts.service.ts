@@ -11,6 +11,7 @@ export class PostsService {
   async createNewPost(data: any): Promise<Posts> {
     return await this.prisma.posts.create({
       data: {
+        userId: data.userId,
         title: data.title,
         description: data.description,
         imgUrl: data.imgUrl,

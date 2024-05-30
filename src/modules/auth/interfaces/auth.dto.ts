@@ -3,15 +3,25 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 export class ILoginDto {
     @IsEmail()
     @IsNotEmpty()
-    email: string;
+    identifier: string;
 
     @IsString()
     @IsNotEmpty()
     password: string;
 }
 
-export interface ISignupDto {
-    name: string;
+export class ISignupDto {
+    @IsNotEmpty()
+    @IsString()
+    userName: string;
+
+    fullName?: string;
+
+    @IsEmail()
+    @IsNotEmpty()
     email: string;
+
+    @IsString()
+    @IsNotEmpty()
     password: string;
 }
