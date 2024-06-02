@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { ILoginDto, ISignupDto } from './interfaces';
+import { ISignInDto, ISignupDto } from './dto';
 import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
@@ -14,7 +14,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async login(body: ILoginDto) {
+  async signIn(body: ISignInDto) {
     // find user by email
     const user = await this.prisma.users.findFirst({
       where: {
@@ -32,7 +32,7 @@ export class AuthService {
     return this.signToken(user.id, user.email);
   }
 
-  async signup(body: ISignupDto) {
+  async signUp(body: ISignupDto) {
     try {
       // generate the hash
       const hash = await argon.hash(body.password);
