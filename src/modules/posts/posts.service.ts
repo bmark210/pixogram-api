@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { Posts } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { IPostsFilter } from 'src/interfaces/posts.interface';
@@ -44,8 +44,14 @@ export class PostsService {
     });
   }
 
-  async updatePost(id: number, data: any): Promise<Posts> {
-    return await this.prisma.posts.update({
+  async updatePost(id: number, data: any): Promise<Posts | null> {
+    const post = await this.getPostById(id);
+
+    if (!post || post.userId !== data.userId) {
+      throw new ForbiddenException('Access denied');
+    }
+
+    const updatedPost = await this.prisma.posts.update({
       where: {
         id: id,
       },
@@ -55,7 +61,9 @@ export class PostsService {
         imgUrl: data.imgUrl,
       },
     });
+    return updatedPost;
   }
+
 
   async deletePost(id: number): Promise<Posts> {
     return await this.prisma.posts.delete({

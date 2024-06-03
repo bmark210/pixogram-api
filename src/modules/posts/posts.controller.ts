@@ -1,42 +1,53 @@
-import { IPostsFilter, IUpdatePostDto } from './../../interfaces/posts.interface';
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
-import { ICreatePostDto } from 'src/interfaces/posts.interface';
+import { ICreatePostDto, IUpdatePostDto } from './dto';
+import { IPostsFilter } from './interfaces';
 
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Get() 
+  @Get()
   getPosts(@Query() filter: IPostsFilter) {
     return this.postsService.getPosts(filter);
   }
 
-  @Post("new")
+  @Post('new')
   createNewPost(@Body() body: ICreatePostDto) {
     return this.postsService.createNewPost(body);
   }
 
-  @Get(":id")
-  getPostById(@Param('id') id: string) {
+  @Get(':id')
+  getPostById(@Param('id', ParseIntPipe) id: number) {
+    let post = this.postsService.getPostById(id);
 
-    let postId = parseInt(id);
-    let post = this.postsService.getPostById(postId);
-
-    if(!post) {
+    if (!post) {
       throw new NotFoundException('Post not found');
     }
     return post;
   }
 
-  @Put(":id")
+  @Put(':id')
   updatePost(@Body() body: IUpdatePostDto, @Query() id: number) {
     return this.postsService.updatePost(id, body);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  deletePost(@Param('id') id: string) {
-    let postId = parseInt(id);
-    return this.postsService.deletePost(postId);
+  deletePost(@Param('id', ParseIntPipe) id: number) {
+    return this.postsService.deletePost(id);
   }
 }
