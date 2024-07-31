@@ -10,6 +10,7 @@ async function bootstrap() {
     credentials: true
   });
   app.use(function (request: any, response: any, next: any) {
+    console.log('request', request.method, request.url);
     response.header("Access-Control-Allow-Origin", "*");
     response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
