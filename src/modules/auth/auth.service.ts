@@ -5,6 +5,7 @@ import * as argon from 'argon2';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
     private config: ConfigService,
   ) {}
 
-  async signIn(body: ISignInDto) {
+  async signIn(body: ISignInDto, res: Response) {
     // find user by email
     const user = await this.prisma.users.findFirst({
       where: {
@@ -29,6 +30,11 @@ export class AuthService {
     const pwMatches = await argon.verify(user.hash, body.password);
     // if password incorrect throw exception
     if (!pwMatches) throw new ForbiddenException('Credentials incorrect');
+    res.setHeader('Access-Control-Allow-Origin', 'https://example.com');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization, Accept');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    
     return this.signToken(user.id, user.email);
   }
 
