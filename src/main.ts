@@ -7,8 +7,12 @@ async function bootstrap() {
   app.enableCors({
     origin: true,
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-    credentials: true,
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+  });
+  app.use(function (request: any, response: any, next: any) {
+    response.header("Access-Control-Allow-Origin", "*");
+    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
   });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
