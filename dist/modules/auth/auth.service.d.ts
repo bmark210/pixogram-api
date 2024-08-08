@@ -2,12 +2,13 @@ import { PrismaService } from '../prisma/prisma.service';
 import { ISignInDto, ISignupDto } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 export declare class AuthService {
     private prisma;
     private jwt;
     private config;
     constructor(prisma: PrismaService, jwt: JwtService, config: ConfigService);
-    signIn(body: ISignInDto): Promise<{
+    signIn(body: ISignInDto, res: Response): Promise<{
         access_token: string;
     }>;
     signUp(body: ISignupDto): Promise<{

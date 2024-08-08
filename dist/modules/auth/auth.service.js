@@ -22,7 +22,7 @@ let AuthService = class AuthService {
         this.jwt = jwt;
         this.config = config;
     }
-    async signIn(body) {
+    async signIn(body, res) {
         const user = await this.prisma.users.findFirst({
             where: {
                 OR: [{ userName: body.identifier }, { email: body.identifier }],
@@ -33,6 +33,10 @@ let AuthService = class AuthService {
         const pwMatches = await argon.verify(user.hash, body.password);
         if (!pwMatches)
             throw new common_1.ForbiddenException('Credentials incorrect');
+        res.setHeader('Access-Control-Allow-Origin', 'https://example.com');
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization, Accept');
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
         return this.signToken(user.id, user.email);
     }
     async signUp(body) {
